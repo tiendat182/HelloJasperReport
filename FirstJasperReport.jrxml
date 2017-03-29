@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-26T11:39:48 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FirstJasperReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2ff1604-d7bb-4d2f-9c88-0592d54c6a85">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LearningSQL"/>
+	<queryString language="SQL">
+		<![CDATA[Select Acc.Open_Branch_Id
+      ,Bra.Name           Branch_Name
+      ,Acc.Cust_Id
+      ,Cus.Address        Cust_Address
+      ,Acc.Account_Id
+      ,Acc.Product_Cd
+      ,Acc.Avail_Balance
+From   Account  Acc
+      ,Customer Cus
+      ,Branch   Bra
+Where  Acc.Cust_Id = Cus.Cust_Id
+And    Acc.Open_Branch_Id = Bra.Branch_Id]]>
+	</queryString>
+	<field name="Open_Branch_Id" class="java.lang.Integer"/>
+	<field name="Branch_Name" class="java.lang.String"/>
+	<field name="Cust_Id" class="java.lang.Integer"/>
+	<field name="Cust_Address" class="java.lang.String"/>
+	<field name="Account_Id" class="java.lang.Integer"/>
+	<field name="Product_Cd" class="java.lang.String"/>
+	<field name="Avail_Balance" class="java.lang.Float"/>
+	<variable name="Avail_Balance1" class="java.lang.Float" resetType="Group" resetGroup="Customer" calculation="Sum">
+		<variableExpression><![CDATA[$F{Avail_Balance}]]></variableExpression>
+	</variable>
+	<variable name="Avail_Balance2" class="java.lang.Float" resetType="Group" resetGroup="Branch" calculation="Sum">
+		<variableExpression><![CDATA[$F{Avail_Balance}]]></variableExpression>
+	</variable>
+	<group name="Branch">
+		<groupExpression><![CDATA[$F{Open_Branch_Id}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<rectangle>
+					<reportElement x="0" y="0" width="800" height="30" backcolor="#8B8E81" uuid="d541e374-5db4-4f5d-a29a-6c16f538ecc8"/>
+				</rectangle>
+				<textField>
+					<reportElement x="0" y="0" width="100" height="30" uuid="fb3bf70a-26b5-41d0-a86d-ccfd9d5603c9"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{Open_Branch_Id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="100" y="0" width="100" height="30" uuid="dcc5cd77-6f1b-4fb6-a91f-8d9e89e1c9f0"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{Branch_Name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="32">
+				<textField>
+					<reportElement mode="Opaque" x="700" y="2" width="100" height="30" backcolor="#4BE7EF" uuid="e232616c-514b-4a2e-8718-b9f7d9b41b08"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{Avail_Balance2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Customer">
+		<groupExpression><![CDATA[$F{Cust_Id}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<textField>
+					<reportElement mode="Opaque" x="700" y="0" width="100" height="30" backcolor="#CEF688" uuid="d0afbc8d-9c4d-4e46-b57a-995c6b94054b"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{Avail_Balance1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Customer 1">
+		<groupExpression><![CDATA[$F{Cust_Id}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<rectangle>
+					<reportElement x="200" y="0" width="600" height="30" backcolor="#BEBDB9" uuid="3030aad0-848e-41ef-b6af-38ce59b8af0b"/>
+				</rectangle>
+				<textField>
+					<reportElement x="201" y="0" width="100" height="30" uuid="1ff88873-4e7c-44fc-a9e5-924743840d9b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{Cust_Id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="301" y="0" width="198" height="30" uuid="fe526e18-eee7-462d-bf28-193b656ee05c"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{Cust_Address}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="102">
+			<staticText>
+				<reportElement x="700" y="0" width="100" height="30" uuid="0423ef15-2dff-4970-a0a8-ca6a86048a5c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[My Bank]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="100" height="56" uuid="5dfef85e-18f1-464f-8514-e7d132327b66"/>
+				<imageExpression><![CDATA["images/bank.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="57" width="800" height="43" uuid="c8f8e567-8472-4486-b890-8e59db9d94b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Bank Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="800" height="30" backcolor="#105F69" uuid="c644f181-22a8-4fa7-b942-2b04ae865941"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="500" y="0" width="100" height="30" uuid="ab19e171-42ad-4b3f-884e-5b657000e5fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Account_Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="0" width="100" height="30" uuid="0a221e43-4c23-4d5f-81c6-659594eeb712"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Product_Cd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="699" y="-1" width="100" height="30" uuid="e0465df4-055e-43bc-85cc-f7181a98189e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Avail_Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="3b57862f-cf41-41ad-a0a3-46091f5b04cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Branch ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="-1" width="100" height="30" uuid="f4949e26-e578-4000-9332-5e76f73de7e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Branch Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="30" uuid="538f9c5c-1745-4577-9936-d54fe8ba069b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cust ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="200" height="30" uuid="684a4cfe-23d4-4303-958f-d6af467bee7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cust Address]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="500" y="0" width="100" height="30" uuid="e8df6922-c078-40e6-bd2c-2f3317d8dbcd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Account_Id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="600" y="0" width="100" height="30" uuid="9b1f5808-363e-4551-933a-95291af2bdfa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Product_Cd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="700" y="0" width="100" height="30" uuid="7a308c03-390b-4af6-8c3b-abe696768d85"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Avail_Balance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
